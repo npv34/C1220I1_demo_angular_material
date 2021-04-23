@@ -23,12 +23,12 @@ export class UserEditComponent implements OnInit {
       phone: [''],
     })
     // @ts-ignore
-    let id = +this.router.snapshot.paramMap.get('id');
-    this.editUserForm.patchValue(this.getUser(id)[0]);
+    //let id = +this.router.snapshot.paramMap.get('id');
+    //this.editUserForm.patchValue(this.getUser(id)[0]);
   }
 
   getUser(id: number) {
-    return this.userService.findById(id);
+    //return this.userService.findById(id);
   }
 
 }

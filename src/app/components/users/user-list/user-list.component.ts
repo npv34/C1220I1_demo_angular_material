@@ -13,7 +13,7 @@ import {MatSort} from "@angular/material/sort";
 export class UserListComponent implements OnInit {
 
   users: IUser[] = [];
-  displayedColumns: string[] = ['id', 'name', 'address', 'phone', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'action'];
   dataSource!: MatTableDataSource<IUser>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -24,16 +24,19 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    this.dataSource = new MatTableDataSource(this.users);
+    console.log(this.users)
   }
 
   getAll() {
-    this.users = this.userService.getAll();
+    this.userService.getAll().subscribe((res) => {
+      this.users = res.data;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -42,6 +45,19 @@ export class UserListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  delete(id: number) {
+    if (confirm('Are you sure?')) {
+      this.userService.delete(id).subscribe((res) => {
+        if (res.status == 'success') {
+          this.getAll();
+        } else {
+          alert('Error system! Please contact admin system')
+        }
+      })
+    }
+
   }
 
 

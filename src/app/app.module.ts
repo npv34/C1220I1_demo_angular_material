@@ -16,15 +16,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { LoginComponent } from './pages/login/login.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     MasterComponent,
-    UserListComponent,
-    UserEditComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
